@@ -1,0 +1,38 @@
+# 🔹 Node modules
+node_modules/
+
+# 🔹 Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🔹 Environment variables (VERY IMPORTANT)
+.env
+.env.*
+
+# 🔹 Build output
+dist/
+build/
+
+# 🔹 Prisma generated files (optional but recommended)
+src/generated/prisma
+
+# 🔹 OS files
+.DS_Store
+Thumbs.db
+
+# 🔹 IDE files
+.vscode/
+.idea/
+
+# 🔹 TypeScript cache
+*.tsbuildinfo
+
+# 🔹 Coverage
+coverage/
+
+# 🔹 Optional: lock files (KEEP usually)
+# package-lock.json  ❌ (DON'T ignore this normally)
+# yarn.lock          ❌ (DON'T ignore this normally)
