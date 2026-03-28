@@ -8,5 +8,28 @@ datasource db {
 }
 
 model User {
-    name String
+    id          Int         @id @default(autoincrement())
+    name        String
+    email       String
+    password    String
+}
+
+model Zap{
+    id          String      @id @default(uuid())
+    triggerId   String
+    trigger     Trigger?
+}
+
+model Trigger{
+    id          String      @id @default(uuid())
+    zapId       String      @unique
+    triggerId   String
+    type        AvailabeTriggers @relation(fields:[triggerId],references:[id])
+    zap         Zap              @relation(fields:[zapId],references: [id])
+}
+
+model AvailabeTriggers{
+    id          String      @id @default(uuid())
+    name        String
+    triggers    Trigger[]
 }
