@@ -18,17 +18,32 @@ model Zap{
     id          String      @id @default(uuid())
     triggerId   String
     trigger     Trigger?
+    actions     Action[]
 }
 
 model Trigger{
     id          String      @id @default(uuid())
     zapId       String      @unique
     triggerId   String
-    type        AvailabeTriggers @relation(fields:[triggerId],references:[id])
+    type        AvailabeTrigger @relation(fields:[triggerId],references:[id])
     zap         Zap              @relation(fields:[zapId],references: [id])
 }
 
-model AvailabeTriggers{
+model Action{
+    id          String      @id @default(uuid())
+    zapId       String      @unique
+    zap         Zap         @relation(fields:[zapId], references:[id])
+    actionId    String
+    type        AvailableAction @relation(fields:[actionId], references:[id])
+}
+
+model AvailableAction{
+    id          String @id @default(uuid())
+    name        String
+    actions     Action[]
+}
+
+model AvailabeTrigger{
     id          String      @id @default(uuid())
     name        String
     triggers    Trigger[]
