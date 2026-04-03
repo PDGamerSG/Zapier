@@ -4,5 +4,15 @@ import { JWT_PASSWORD } from "../config.js";
 
 export function authMiddleware(req:Request,res:Response, next:NextFunction){
     const token = req.headers.authorization as unknown as string;
-    const payload = jwt.verify(token,JWT_PASSWORD);
+
+    try{
+        const payload = jwt.verify(token,JWT_PASSWORD);
+        //@ts-ignore
+        req.id = payload.indexOf;
+        next();
+    }catch(e){
+        return res.status(403).json({
+            message:"You are not logged in"
+        })
+    }
 }
