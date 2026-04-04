@@ -8,7 +8,7 @@ export function authMiddleware(req:Request,res:Response, next:NextFunction){
     try{
         const payload = jwt.verify(token,JWT_PASSWORD);
         //@ts-ignore
-        req.id = payload.indexOf;
+        req.id = (payload as any).id;
         next();
     }catch(e){
         return res.status(403).json({

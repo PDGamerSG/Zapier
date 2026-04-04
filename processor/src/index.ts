@@ -16,21 +16,25 @@ async function main(){
             take:10
         })
 
-        producer.send({
-            topic:TOPIC_NAME,
-            messages: pendingRows.map(r =>{
-                return{
-                    value: r.zapRunId
+        if(pendingRows.length > 0){
+            await producer.send({
+                topic:TOPIC_NAME,
+                messages: pendingRows.map(r =>{
+                    return{
+                        value: r.zapRunId
+                    }
+                })
+            })
+            await prisma.zapRunOutbox.deleteMany({
+                where:{
+                    id:{
+                        in: pendingRows.map(x => x.id)
+                    }
                 }
             })
-        })
-        await prisma.zapRunOutbox.deleteMany({
-            where:{
-                id:{
-                    in: pendingRows.map(x => x.id)
-                }
-            }
-        })
+        }
+
+        await new Promise(r => setTimeout(r, 500));
     }
 }
 

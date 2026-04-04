@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsc -b && node dist/index.js"
+    "dev": "tsc -b && node dist/src/index.js"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
