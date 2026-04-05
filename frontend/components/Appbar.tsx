@@ -6,7 +6,7 @@ import { PrimaryButton } from "./buttons/PrimaryButton";
 export const Appbar =() =>{
     const router = useRouter();
     return <div className="flex borde-b justify-between p-4">
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center text-2xl font-extrabold">
             Zapier
         </div>
         <div className="flex">
