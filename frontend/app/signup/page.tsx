@@ -3,8 +3,12 @@ import { Appbar } from "@/components/Appbar";
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { CheckFeature } from "@/components/CheckFeature";
 import { Input } from "@/components/input";
+import { useState } from "react";
 
 export default function (){
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
     return <div>
         <Appbar />
         <div className="flex justify-center">
@@ -24,9 +28,15 @@ export default function (){
                         </div>
                     </div>
                     <div className="flex-1 pt-6 pb-12 mt-6 w-15 px-4 border rounded">
-                        <Input label={"Name"} onChange={e =>{}} type="text" placeholder="Your name"></Input>
-                        <Input label={"Email"} onChange={e =>{}} type="text" placeholder="Your Email"></Input>
-                        <Input label={"Password"} onChange={e =>{}} type="password" placeholder="Password"></Input>
+                        <Input label={"Name"} onChange={e =>{
+                            setName(e.target.value);
+                        }} type="text" placeholder="Your name"></Input>
+                        <Input label={"Email"} onChange={e =>{
+                            setEmail(e.target.value);
+                        }} type="text" placeholder="Your Email"></Input>
+                        <Input label={"Password"} onChange={e =>{
+                            setPassword(e.target.value);
+                        }} type="password" placeholder="Password"></Input>
                         <div className="pt-4">
                             <PrimaryButton onClick={() =>{
 

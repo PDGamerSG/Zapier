@@ -1,3 +1,47 @@
-export default function(){
+"use client"
+import { Appbar } from "@/components/Appbar";
+import { PrimaryButton } from "@/components/buttons/PrimaryButton";
+import { CheckFeature } from "@/components/CheckFeature";
+import { Input } from "@/components/input";
+import { useState } from "react";
 
+export default function (){
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+
+    return <div>
+        <Appbar />
+        <div className="flex justify-center">
+            <div className="flex pt-8 max-4xl">
+                    <div className="flex-1 pt-20 px-4">
+                        <div className="font-semibold text-3xl pb-4">
+                            Join millions worldwide who automate their work using Zapier
+                        </div>
+                        <div className="pb-6 pt-4">
+                            <CheckFeature label={"Easy setup, no coding required"} />
+                        </div>
+                        <div className="pb-6">
+                            <CheckFeature label={"Free foreever for core features"} />
+                        </div>
+                        <div className="pb-6">
+                            <CheckFeature label={"14-day trial of premium fetures & apps"} />
+                        </div>
+                    </div>
+                    <div className="flex-1 pt-6 pb-12 mt-15 w-15 px-4 border rounded">
+                        <Input label={"Email"}
+                        onChange={e =>{
+                            setEmail(e.target.value);
+                        }} type="text" placeholder="Your Email"></Input>
+                        <Input label={"Password"} onChange={e =>{
+                            setPassword(e.target.value);
+                        }} type="password" placeholder="Password"></Input>
+                        <div className="pt-4">
+                            <PrimaryButton onClick={() =>{
+
+                            }} size="big">Get Started Free</PrimaryButton>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 }
