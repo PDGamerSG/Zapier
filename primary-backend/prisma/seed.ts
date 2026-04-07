@@ -38,6 +38,55 @@ async function main() {
         }
     });
 
+    // Create a demo user with many zaps
+    let user = await prisma.user.findFirst({ where: { email: "demo@zapier.com" } });
+    if (!user) {
+        user = await prisma.user.create({
+            data: {
+                name: "Demo User",
+                email: "demo@zapier.com",
+                password: "password123"
+            }
+        });
+    }
+    console.log("User created:", user.email);
+
+    const zapDefinitions = [
+        { name: "Gmail → Slack", actions: [{ actionId: "email", order: 0 }] },
+        { name: "Webhook → Email", actions: [{ actionId: "email", order: 0 }] },
+        { name: "Webhook → Solana", actions: [{ actionId: "sol", order: 0 }] },
+        { name: "Webhook → Email + Solana", actions: [{ actionId: "email", order: 0 }, { actionId: "sol", order: 1 }] },
+        { name: "Daily Digest", actions: [{ actionId: "email", order: 0 }] },
+        { name: "Payment Alert → Solana", actions: [{ actionId: "sol", order: 0 }] },
+        { name: "Form Submit → Email", actions: [{ actionId: "email", order: 0 }] },
+        { name: "Order Placed → Solana + Email", actions: [{ actionId: "sol", order: 0 }, { actionId: "email", order: 1 }] },
+        { name: "Support Ticket → Email", actions: [{ actionId: "email", order: 0 }] },
+        { name: "New Signup → Solana", actions: [{ actionId: "sol", order: 0 }] },
+    ];
+
+    for (const def of zapDefinitions) {
+        const zap = await prisma.zap.create({
+            data: {
+                userId: user.id,
+                triggerId: "webhook",
+                trigger: {
+                    create: {
+                        triggerId: "webhook",
+                        metadata: { name: def.name }
+                    }
+                },
+                actions: {
+                    create: def.actions.map(a => ({
+                        actionId: a.actionId,
+                        sortingOrder: a.order,
+                        metadata: {}
+                    }))
+                }
+            }
+        });
+        console.log(`Created zap: ${def.name} (${zap.id})`);
+    }
+
     const triggers = await prisma.availableTrigger.findMany();
     const actions = await prisma.availableAction.findMany();
     console.log("Triggers:", triggers);
