@@ -5,6 +5,7 @@ import { LinkButton } from "@/components/buttons/LInkButton";
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { ZapCell } from "@/components/ZapCell";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function useAvailableActionsAndTriggers() {
@@ -24,6 +25,7 @@ function useAvailableActionsAndTriggers() {
 }
 
 export default function (){
+    const router = useRouter();
     const {availableActions,availableTriggers} = useAvailableActionsAndTriggers();
     const [selectedTrigger, setSelectedTrigger] = useState<{
         id:string,
@@ -37,6 +39,26 @@ export default function (){
     const [selectedModalIndex,setSelectedModalIndex] = useState<null |number>(null);
     return <div>
         <Appbar />
+        <div className="flex justify-end bg-slate-200 p-4">
+            <PrimaryButton onClick={async() =>{
+                if (!selectedTrigger?.id){
+                    return;
+                }
+                const response = await axios.post(`${BACKEND_URL}/api/v1/zap`,{
+                    "availableTriggerId": selectedTrigger?.id,
+                    "triggerMetadata":{},
+                    "actions":selectedActions.map( a=>({
+                        availableActionId: a.availableActionId,
+                        actionMetadata: {}
+                    }))
+                },{
+                    headers:{
+                        Authorization: localStorage.getItem("token")
+                    }
+                })
+                router.push("/dashboard");
+            }}>Publish</PrimaryButton>
+        </div>
         <div className="w-full h-screen bg-slate-200 flex flex-col justify-center">
             <div className="flex justify-center w-full">
                 <ZapCell onClick={() =>{

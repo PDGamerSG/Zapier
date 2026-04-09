@@ -79,8 +79,8 @@ function ZapTable({zaps}: {zaps:Zap[]}){
     return <div className="p-8 max-w-screen-lg w-full">
         <div className="flex">
             <div className="flex-1">Name</div>
-            <div className="flex-1">Last Edit</div>
-            <div className="flex-1">Running</div>
+            <div className="flex-1">ID</div>
+            <div className="flex-1">Created at</div>
             <div className="flex-1">Go</div>
     </div>
         {zaps.map(z => <div className="flex border-b border-t py-4 ">
