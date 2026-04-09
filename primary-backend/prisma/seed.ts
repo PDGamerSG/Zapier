@@ -14,7 +14,7 @@ async function main() {
         create: {
             id: "webhook",
             name: "Webhook",
-            image: "https://via.placeholder.com/48?text=WH"
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVQtyw3YP4pW8owoHsGyCI2o8POL2m7Hf9NA&s"
         }
     });
 
@@ -24,7 +24,7 @@ async function main() {
         create: {
             id: "email",
             name: "Email",
-            image: "https://via.placeholder.com/48?text=EM"
+            image: "https://img.freepik.com/premium-vector/email-letter-mail-message-subscribe-icon_1178600-1831.jpg?semt=ais_hybrid&w=740&q=80"
         }
     });
 
@@ -35,6 +35,16 @@ async function main() {
             id: "sol",
             name: "Solana",
             image: "https://via.placeholder.com/48?text=SOL"
+        }
+    });
+
+    await prisma.availableAction.upsert({
+        where: { id: "send-sol" },
+        update: {},
+        create: {
+            id: "send-sol",
+            name: "Solana",
+            image: "https://t4.ftcdn.net/jpg/10/07/56/63/360_F_1007566365_53UZszxYkvhblIWuMPfBmwQezeDryXeg.jpg"
         }
     });
 
